@@ -11,9 +11,9 @@ export function AppBarMUIComponent() {
         {/*  <MenuIcon />*/}
         {/*</IconButton>*/}
         <Typography variant="h6" component="b" sx={{ flexGrow: 1 }}>
-          New Todolist
+          Todolist
         </Typography>
-        <Button color="inherit">Login</Button>
+        <Button color="secondary" variant={"outlined"}>Login</Button>
       </Toolbar>
     </AppBar>
   );

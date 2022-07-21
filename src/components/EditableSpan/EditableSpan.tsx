@@ -10,8 +10,8 @@ export function EditableSpan(props: PropsType) {
   const [edited, setEdited] = useState<boolean>(false)
   const [title, setTitle] = useState(props.title)
 
-  const toggleEditedMode = () => {
-    setEdited(!edited)
+  const turnOnEditMode = () => {
+    setEdited(true)
   }
 
   const inputChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -20,13 +20,16 @@ export function EditableSpan(props: PropsType) {
 
   const inputKeyDownHandler = (evt: KeyboardEvent<HTMLInputElement>) => {
     if (evt.key === 'Enter') {
-      changeTitle()
+      turnOffEditMode()
     }
   }
 
-  const changeTitle = () => {
-    props.changeTitle(title)
+  const turnOffEditMode = () => {
+    if (title.trim()) {
+      props.changeTitle(title)
+    }
     setEdited(false)
+    setTitle(props.title)
   }
 
   return edited ? (
@@ -34,12 +37,12 @@ export function EditableSpan(props: PropsType) {
       value={title}
       onChange={inputChangeHandler}
       onKeyDown={inputKeyDownHandler}
-      onBlur={changeTitle}
+      onBlur={turnOffEditMode}
       autoFocus
       variant="outlined"
       size="small"
     />
   ) : (
-    <span onDoubleClick={toggleEditedMode}>{title}</span>
+    <span onDoubleClick={turnOnEditMode}>{props.title}</span>
   )
 }

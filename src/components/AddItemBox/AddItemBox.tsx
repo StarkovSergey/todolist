@@ -3,7 +3,7 @@ import { IconButton, TextField } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import style from './AddItemBox.module.css'
 
-type PropsType = {
+export type PropsType = {
   addItem: (title: string) => void
   placeholder?: string
 }
