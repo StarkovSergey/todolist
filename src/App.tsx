@@ -3,9 +3,8 @@ import './App.css'
 import { v1 } from 'uuid'
 import { Todolist } from './components/Todolist/Todolist'
 import { AddItemBox } from './components/AddItemBox/AddItemBox'
-import { Container, Grid } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import { AppBarMUIComponent } from './components/AppBar/AppBarMUIComponent';
+import { Container, Grid } from '@mui/material'
+import { AppBarMUIComponent } from './components/AppBar/AppBarMUIComponent'
 
 export type FilterType = 'all' | 'active' | 'completed'
 export type TaskType = {
@@ -53,8 +52,8 @@ function App() {
 
   const removeTodolist = (todolistID: string) => {
     setTodolists(todolists.filter((todolist) => todolist.id !== todolistID))
-    delete tasks[todolistID];
-    setTasks({...tasks})
+    delete tasks[todolistID]
+    setTasks({ ...tasks })
   }
 
   const changeTodolistTitle = (todolistID: string, title: string) => {
@@ -141,9 +140,9 @@ function App() {
       <AppBarMUIComponent />
       <Container>
         <Grid container sx={{ padding: '20px 0' }}>
-          <AddItemBox addItem={addTodolist} placeholder="Add new todolist"/>
+          <AddItemBox addItem={addTodolist} placeholder="Add new todolist" />
         </Grid>
-        <Grid container spacing={{xs: 2, sm: 4}}>
+        <Grid container spacing={{ xs: 2, sm: 4 }}>
           {todolistsComponents}
         </Grid>
       </Container>

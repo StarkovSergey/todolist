@@ -49,6 +49,7 @@ export function AddItemBox(props: PropsType) {
         error={!!error}
         variant="outlined"
         size="small"
+        autoComplete="off"
       />
 
       <IconButton onClick={addItem} color="secondary" aria-label="add item" size="small">
