@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, KeyboardEvent, useRef, useState } from 'react'
 import { IconButton, TextField } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import style from './AddItemBox.module.css'
@@ -8,7 +8,7 @@ export type PropsType = {
   placeholder?: string
 }
 
-export function AddItemBox(props: PropsType) {
+export const AddItemBox = React.memo((props: PropsType) => {
   const [title, setTitle] = useState<string>('')
   const [error, setError] = useState<null | string>(null)
 
@@ -57,4 +57,4 @@ export function AddItemBox(props: PropsType) {
       </IconButton>
     </div>
   )
-}
+})

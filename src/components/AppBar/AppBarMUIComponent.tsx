@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { AppBar, Toolbar, Typography, Button} from '@mui/material'
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 
-export function AppBarMUIComponent() {
+export const AppBarMUIComponent = React.memo(() => {
   return (
     <AppBar position="static">
       <Toolbar>
@@ -17,4 +15,4 @@ export function AppBarMUIComponent() {
       </Toolbar>
     </AppBar>
   );
-}
+})

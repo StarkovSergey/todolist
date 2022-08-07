@@ -30,6 +30,7 @@ export type TodolistType = {
 function App() {
   const dispatch = useDispatch()
   const todolists = useSelector<AppRootState, TodolistType[]>((state) => state.todolists)
+  const tasks = useSelector<AppRootState, TasksStateType>((state) => state.tasks)
 
   const addTodolist = (title: string) => {
     const action = addTodolistAC(title)
@@ -45,6 +46,7 @@ function App() {
         <Paper elevation={3} sx={{ padding: '20px' }}>
           <Todolist
             todolist={todolist}
+            tasks={tasks[todolist.id]}
           />
         </Paper>
       </Grid>
