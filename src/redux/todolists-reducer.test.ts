@@ -1,18 +1,17 @@
-import { TodolistType } from '../App'
 import {
   addTodolistAC,
   changeTodolistFilterAC,
   changeTodolistTitleAC,
-  removeTodolistAC,
+  removeTodolistAC, TodolistDomainType,
   todolistsReducer,
 } from './todolists-reducer'
 
-let startState: TodolistType[]
+let startState: TodolistDomainType[]
 
 beforeEach(() => {
   startState = [
-    { id: '1', title: 'What to learn', filter: 'all' },
-    { id: '2', title: 'What to buy', filter: 'active' },
+    { id: '1', title: 'What to learn', filter: 'all', order: 0, addedDate: '' },
+    { id: '2', title: 'What to buy', filter: 'active', order: 0, addedDate: '' },
   ]
 })
 

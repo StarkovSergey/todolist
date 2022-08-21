@@ -29,7 +29,7 @@ export const EditableSpan = React.memo((props: PropsType) => {
       props.changeTitle(title)
     }
     setEdited(false)
-    setTitle(props.title)
+    props.changeTitle(title)
   }
 
   return edited ? (

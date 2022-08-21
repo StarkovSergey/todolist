@@ -4,11 +4,11 @@ import { EditableSpan } from '../EditableSpan/EditableSpan'
 import DeleteIcon from '@mui/icons-material/Delete'
 import React, { ChangeEvent } from 'react'
 import { changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from '../../redux/tasks-reducer'
-import { TaskType } from '../../App'
 import { useDispatch } from 'react-redux'
+import { TaskStatuses, TaskType } from '../../api/todolist-api'
 
 type PropsType = {
-  task: TaskType,
+  task: TaskType
   todolistID: string
 }
 
@@ -20,7 +20,7 @@ export const Task = React.memo(({task, todolistID}: PropsType) => {
   }
 
   const checkboxTaskHandler = (evt: ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeTaskStatusAC(todolistID, task.id, evt.currentTarget.checked))
+    dispatch(changeTaskStatusAC(todolistID, task.id, evt.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New))
   }
 
   const changeTaskTitle = (title: string) => {
@@ -29,7 +29,7 @@ export const Task = React.memo(({task, todolistID}: PropsType) => {
 
   return (
     <li key={task.id} className={style.item}>
-      <Checkbox checked={task.isDone} onChange={checkboxTaskHandler} size={'small'} color="success" id={task.id}/>
+      <Checkbox checked={task.status === TaskStatuses.Completed} onChange={checkboxTaskHandler} size={'small'} color="success" id={task.id}/>
       <label htmlFor={task.id}>
         <EditableSpan title={task.title} changeTitle={changeTaskTitle} />
       </label>

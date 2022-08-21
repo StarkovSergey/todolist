@@ -5,32 +5,16 @@ import { AddItemBox } from './components/AddItemBox/AddItemBox'
 import { Container, Grid, Paper } from '@mui/material'
 import { AppBarMUIComponent } from './components/AppBar/AppBarMUIComponent'
 import {
-  addTodolistAC,
+  addTodolistAC, TodolistDomainType,
 
 } from './redux/todolists-reducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from './redux/store'
-
-export type FilterType = 'all' | 'active' | 'completed'
-
-export type TaskType = {
-  id: string
-  title: string
-  isDone: boolean
-}
-
-export type TasksStateType = {
-  [id: string]: TaskType[]
-}
-export type TodolistType = {
-  id: string
-  title: string
-  filter: 'all' | 'active' | 'completed'
-}
+import { TasksStateType } from './redux/tasks-reducer'
 
 function App() {
   const dispatch = useDispatch()
-  const todolists = useSelector<AppRootStateType, TodolistType[]>((state) => state.todolists)
+  const todolists = useSelector<AppRootStateType, TodolistDomainType[]>((state) => state.todolists)
   const tasks = useSelector<AppRootStateType, TasksStateType>((state) => state.tasks)
 
   const addTodolist = (title: string) => {

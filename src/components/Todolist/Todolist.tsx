@@ -1,4 +1,3 @@
-import { FilterType, TaskType, TodolistType } from '../../App'
 import React, { useCallback } from 'react'
 import { EditableSpan } from '../EditableSpan/EditableSpan'
 import { AddItemBox } from '../AddItemBox/AddItemBox'
@@ -6,12 +5,19 @@ import { Button, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import style from './Todolist.module.css'
 import { useDispatch } from 'react-redux'
-import { changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC } from '../../redux/todolists-reducer'
+import {
+  changeTodolistFilterAC,
+  changeTodolistTitleAC,
+  FilterType,
+  removeTodolistAC,
+  TodolistDomainType,
+} from '../../redux/todolists-reducer'
 import { addTaskAC } from '../../redux/tasks-reducer'
 import { Task } from '../Task/Task'
+import { TaskStatuses, TaskType } from '../../api/todolist-api'
 
 type PropsType = {
-  todolist: TodolistType
+  todolist: TodolistDomainType
   tasks: TaskType[]
 }
 
@@ -22,10 +28,10 @@ export const Todolist = React.memo(({todolist, tasks}: PropsType) => {
 
   switch (todolist.filter) {
     case 'active':
-      filteredTasks = tasks.filter((task) => !task.isDone)
+      filteredTasks = tasks.filter((task) => task.status === TaskStatuses.New)
       break
     case 'completed':
-      filteredTasks = tasks.filter((task) => task.isDone)
+      filteredTasks = tasks.filter((task) => task.status === TaskStatuses.Completed)
       break
     default:
       filteredTasks = tasks

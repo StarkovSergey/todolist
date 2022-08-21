@@ -2,13 +2,13 @@ import { Task } from './Task'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../../redux/store'
-import { TaskType } from '../../App'
 import { ReduxStoreProviderDecorator } from '../../stories/decorators/ReduxStoreProviderDecorator'
+import { TaskType } from '../../api/todolist-api'
 
 export default {
   title: 'Task',
   component: Task,
-  argTypes: { // описание аргументов
+  argTypes: {
     todolistID: {
       description: 'just a todolist ID'
     }
