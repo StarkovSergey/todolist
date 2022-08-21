@@ -1,4 +1,4 @@
-import { FilterType, TasksStateType, TaskType, TodolistType } from '../../App'
+import { FilterType, TaskType, TodolistType } from '../../App'
 import React, { useCallback } from 'react'
 import { EditableSpan } from '../EditableSpan/EditableSpan'
 import { AddItemBox } from '../AddItemBox/AddItemBox'
