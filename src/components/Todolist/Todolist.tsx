@@ -1,20 +1,20 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { EditableSpan } from '../EditableSpan/EditableSpan'
 import { AddItemBox } from '../AddItemBox/AddItemBox'
 import { Button, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import style from './Todolist.module.css'
-import { useDispatch } from 'react-redux'
 import {
   changeTodolistFilterAC,
-  changeTodolistTitleAC,
+  changeTodolistTitleTC,
   FilterType,
-  removeTodolistAC,
+  removeTodolistTC,
   TodolistDomainType,
 } from '../../redux/todolists-reducer'
-import { addTaskAC } from '../../redux/tasks-reducer'
+import { addTaskTC, setTasksTC } from '../../redux/tasks-reducer'
 import { Task } from '../Task/Task'
 import { TaskStatuses, TaskType } from '../../api/todolist-api'
+import { useAppDispatch } from '../../redux/store'
 
 type PropsType = {
   todolist: TodolistDomainType
@@ -22,10 +22,14 @@ type PropsType = {
 }
 
 export const Todolist = React.memo(({todolist, tasks}: PropsType) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(setTasksTC(todolist.id))
+  }, [dispatch, todolist.id])
+
 
   let filteredTasks: TaskType[]
-
   switch (todolist.filter) {
     case 'active':
       filteredTasks = tasks.filter((task) => task.status === TaskStatuses.New)
@@ -42,16 +46,15 @@ export const Todolist = React.memo(({todolist, tasks}: PropsType) => {
   }, [dispatch, todolist.id])
 
   const removeTodolist = useCallback(() => {
-    const action = removeTodolistAC(todolist.id)
-    dispatch(action)
+    dispatch(removeTodolistTC(todolist.id))
   }, [dispatch, todolist.id])
 
   const changeTodolistTitle = useCallback((title: string) => {
-    dispatch(changeTodolistTitleAC(todolist.id, title))
+    dispatch(changeTodolistTitleTC(todolist.id, title))
   }, [dispatch, todolist.id])
 
   const addTask = useCallback((title: string) => {
-    dispatch(addTaskAC(todolist.id, title))
+    dispatch(addTaskTC(todolist.id, title))
   }, [dispatch, todolist.id])
 
   const tasksElements = filteredTasks.map((task) => {

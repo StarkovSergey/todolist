@@ -1,15 +1,19 @@
-import { combineReducers, createStore } from 'redux'
-import { todolistsReducer } from './todolists-reducer'
-import { tasksReducer } from './tasks-reducer'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { TodolistsActionsType, todolistsReducer } from './todolists-reducer'
+import { TasksActionsType, tasksReducer } from './tasks-reducer'
+import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { useDispatch } from 'react-redux'
 
 const rootReducer = combineReducers({
   todolists: todolistsReducer,
   tasks: tasksReducer,
 })
 
-export type AppRootStateType = ReturnType<typeof rootReducer>
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 
-export const store = createStore(rootReducer)
-
-// @ts-ignore
-window.store = store
+// types
+type AppActionsType = TodolistsActionsType | TasksActionsType
+export type AppRootStateType = ReturnType<typeof store.getState>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>
+export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>

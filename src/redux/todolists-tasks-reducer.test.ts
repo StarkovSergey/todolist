@@ -16,11 +16,12 @@ beforeEach(() => {
 })
 
 test('adding todolist should cause creating certain id field in tasks state', () => {
-  const action = addTodolistAC('What to buy')
+  const newTodolist: TodolistDomainType = { id: '6', title: 'The Hobbit', filter: 'active', order: 0, addedDate: '' }
+  const action = addTodolistAC(newTodolist)
 
   const todolistsEndState = todolistsReducer(todolistsStartState, action)
   const tasksEndState = tasksReducer(tasksStartState, action)
 
-  expect(todolistsEndState[0].id).toBe(action.id)
-  expect(tasksEndState[action.id]).toBeDefined()
+  expect(todolistsEndState[0].id).toBe(action.todolist.id)
+  expect(tasksEndState[action.todolist.id]).toBeDefined()
 })
