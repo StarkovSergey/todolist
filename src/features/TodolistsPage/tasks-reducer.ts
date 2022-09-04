@@ -1,6 +1,7 @@
 import { addTodolistAT, removeTodolistAT, setTodolistsAT } from './todolists-reducer'
 import { TaskPriorities, TaskStatuses, TaskType, todolistAPI } from '../../api/todolist-api'
 import { AppThunk } from '../../app/store'
+import { setAppStatusAC } from '../../app/app-reducer'
 
 const initialState: TasksStateType = {}
 
@@ -71,21 +72,32 @@ export const updateTaskAC = (task: TaskType) => ({
 export const setTasksTC =
   (todolistID: string): AppThunk =>
   async (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+
     const response = await todolistAPI.getTasks(todolistID)
     dispatch(setTasksAC(todolistID, response.data.items))
+
+    dispatch(setAppStatusAC('succeeded'))
   }
 export const removeTaskTC =
   (todolistID: string, taskID: string): AppThunk =>
   async (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+
     await todolistAPI.removeTask(todolistID, taskID)
     dispatch(removeTaskAC(todolistID, taskID))
+
+    dispatch(setAppStatusAC('succeeded'))
   }
 export const addTaskTC =
   (todolistID: string, title: string): AppThunk =>
   async (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+
     const response = await todolistAPI.addTask(todolistID, title)
-    console.log(response.data)
     dispatch(addTaskAC(response.data.data.item))
+
+    dispatch(setAppStatusAC('succeeded'))
   }
 export const updateTaskTC =
   (todolistID: string, taskID: string, model: updateTaskModel): AppThunk =>
@@ -93,6 +105,8 @@ export const updateTaskTC =
     const task = getState().tasks[todolistID].find((task) => task.id === taskID)
 
     if (task) {
+      dispatch(setAppStatusAC('loading'))
+
       const response = await todolistAPI.updateTask(todolistID, taskID, {
         title: task.title,
         status: task.status,
@@ -104,6 +118,8 @@ export const updateTaskTC =
       })
 
       dispatch(updateTaskAC(response.data.data.item))
+
+      dispatch(setAppStatusAC('succeeded'))
     }
   }
 

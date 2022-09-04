@@ -30,7 +30,7 @@ export const Task = React.memo(({task, todolistID}: PropsType) => {
   return (
     <li key={task.id} className={style.item}>
       <Checkbox checked={task.status === TaskStatuses.Completed} onChange={checkboxTaskHandler} size={'small'} color="success" id={task.id}/>
-      <label htmlFor={task.id} style={{width: "100%"}}>
+      <label style={{width: "100%"}}>
         <EditableSpan title={task.title} changeTitle={changeTaskTitle} />
       </label>
       <IconButton onClick={removeTask} size="small">

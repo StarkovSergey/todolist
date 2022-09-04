@@ -74,6 +74,9 @@ const initialGlobalState: AppRootStateType = {
       },
     ],
   },
+  app: {
+    status: 'idle'
+  }
 }
 
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState, applyMiddleware(thunkMiddleware))
