@@ -1,6 +1,6 @@
 import { addTodolistAT, removeTodolistAT, setTodolistsAT } from './todolists-reducer'
-import { TaskPriorities, TaskStatuses, TaskType, todolistAPI } from '../api/todolist-api'
-import { AppThunk } from './store'
+import { TaskPriorities, TaskStatuses, TaskType, todolistAPI } from '../../api/todolist-api'
+import { AppThunk } from '../../app/store'
 
 const initialState: TasksStateType = {}
 

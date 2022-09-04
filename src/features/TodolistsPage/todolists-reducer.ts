@@ -1,5 +1,5 @@
-import { todolistAPI, TodolistType } from '../api/todolist-api'
-import { AppThunk } from './store'
+import { todolistAPI, TodolistType } from '../../api/todolist-api'
+import { AppThunk } from '../../app/store'
 
 const initialState: TodolistDomainType[] = []
 

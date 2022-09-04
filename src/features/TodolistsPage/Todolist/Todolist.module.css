@@ -1,3 +1,7 @@
+.todolist {
+  width: 250px;
+}
+
 ul {
   list-style: none;
   margin: 0;
@@ -12,9 +16,16 @@ ul {
 .item {
   display: flex;
   align-items: center;
+  min-height: 40px;
+  width: 100%;
 }
 
 .header {
   margin: 0;
   margin-bottom: 10px;
+  min-height: 40px;
+}
+
+.tasks-list {
+  padding: 10px 0;
 }

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
-import { EditableSpan } from '../EditableSpan/EditableSpan'
-import { AddItemBox } from '../AddItemBox/AddItemBox'
+import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
+import { AddItemBox } from '../../../components/AddItemBox/AddItemBox'
 import { Button, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import style from './Todolist.module.css'
@@ -10,11 +10,11 @@ import {
   FilterType,
   removeTodolistTC,
   TodolistDomainType,
-} from '../../redux/todolists-reducer'
-import { addTaskTC, setTasksTC } from '../../redux/tasks-reducer'
-import { Task } from '../Task/Task'
-import { TaskStatuses, TaskType } from '../../api/todolist-api'
-import { useAppDispatch } from '../../redux/store'
+} from '../todolists-reducer'
+import { addTaskTC, setTasksTC } from '../tasks-reducer'
+import { Task } from './Task/Task'
+import { TaskStatuses, TaskType } from '../../../api/todolist-api'
+import { useAppDispatch } from '../../../app/store'
 
 type PropsType = {
   todolist: TodolistDomainType
@@ -68,7 +68,7 @@ export const Todolist = React.memo(({todolist, tasks}: PropsType) => {
   })
 
   return (
-    <div>
+    <div className={style.todolist}>
       <h3 className={style.header}>
         <EditableSpan title={todolist.title} changeTitle={changeTodolistTitle} />
         <IconButton onClick={removeTodolist} size="small">
@@ -76,7 +76,9 @@ export const Todolist = React.memo(({todolist, tasks}: PropsType) => {
         </IconButton>
       </h3>
       <AddItemBox addItem={addTask} placeholder={'Add new task'} />
-      <ul>{tasksElements}</ul>
+      <ul className={style['tasks-list']}>
+        {tasksElements}
+      </ul>
       <div className={style['button-box']}>
         <Button
           onClick={() => changeTodolistFilter('all')}

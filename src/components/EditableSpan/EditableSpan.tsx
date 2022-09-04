@@ -41,6 +41,7 @@ export const EditableSpan = React.memo((props: PropsType) => {
       autoFocus
       variant="outlined"
       size="small"
+      sx={{maxWidth: "fit-content"}}
     />
   ) : (
     <span onDoubleClick={turnOnEditMode}>{props.title}</span>

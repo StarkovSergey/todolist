@@ -1,9 +1,9 @@
 import { Task } from './Task'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../redux/store'
-import { ReduxStoreProviderDecorator } from '../../stories/decorators/ReduxStoreProviderDecorator'
-import { TaskType } from '../../api/todolist-api'
+import { AppRootStateType } from '../../../../app/store'
+import { ReduxStoreProviderDecorator } from '../../../../stories/decorators/ReduxStoreProviderDecorator'
+import { TaskType } from '../../../../api/todolist-api'
 
 export default {
   title: 'Task',
