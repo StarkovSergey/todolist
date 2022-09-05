@@ -1,6 +1,6 @@
-import { addTaskAC, removeTaskAC, tasksReducer, TasksStateType, updateTaskAC } from './tasks-reducer'
-import { removeTodolistAC } from './todolists-reducer'
-import { TaskPriorities, TaskStatuses, TaskType } from '../../api/todolist-api'
+import { addTaskAC, removeTaskAC, tasksReducer, TasksStateType, updateTaskAC } from '../tasks-reducer'
+import { removeTodolistAC } from '../todolists-reducer'
+import { TaskPriorities, TaskStatuses, TaskType } from '../../../api/todolist-api'
 
 let startState: TasksStateType
 let testTask: TaskType
@@ -10,13 +10,13 @@ beforeEach(() => {
 
   startState = {
     id1: [
-      { id: 'id1', title: 'HTML', status: TaskStatuses.Completed, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '' },
-      { id: 'id2', title: 'CSS', status: TaskStatuses.New, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '' },
-      { id: 'id3', title: 'JS', status: TaskStatuses.New, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '' },
+      { id: 'id1', title: 'HTML', status: TaskStatuses.Completed, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
+      { id: 'id2', title: 'CSS', status: TaskStatuses.New, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
+      { id: 'id3', title: 'JS', status: TaskStatuses.New, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
     ],
     id2: [
-      { id: 'id1', title: 'Milk', status: TaskStatuses.Completed, todoListId: 'id2', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '' },
-      { id: 'id2', title: 'Cookie', status: TaskStatuses.Completed, todoListId: 'id2', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '' },
+      { id: 'id1', title: 'Milk', status: TaskStatuses.Completed, todoListId: 'id2', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
+      { id: 'id2', title: 'Cookie', status: TaskStatuses.Completed, todoListId: 'id2', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
     ],
   }
 })

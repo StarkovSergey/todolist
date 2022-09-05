@@ -1,5 +1,6 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
 import { TextField } from '@mui/material'
+import style from './EditableSpan.module.css'
 
 type PropsType = {
   title: string
@@ -49,6 +50,6 @@ export const EditableSpan = React.memo((props: PropsType) => {
       disabled={props.disabled}
     />
   ) : (
-    <span onDoubleClick={turnOnEditMode}>{props.title}</span>
+    <span onDoubleClick={turnOnEditMode} className={props.disabled ? style.disabled : ''}>{props.title}</span>
   )
 })

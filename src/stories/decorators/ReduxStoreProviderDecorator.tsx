@@ -35,6 +35,7 @@ const initialGlobalState: AppRootStateType = {
         order: 0,
         priority: TaskPriorities.Low,
         description: '',
+        entityStatus: 'idle'
       },
       {
         id: v1(),
@@ -47,6 +48,7 @@ const initialGlobalState: AppRootStateType = {
         order: 0,
         priority: TaskPriorities.Low,
         description: '',
+        entityStatus: 'idle'
       },
     ],
     todolistId2: [
@@ -61,6 +63,7 @@ const initialGlobalState: AppRootStateType = {
         order: 0,
         priority: TaskPriorities.Low,
         description: '',
+        entityStatus: 'idle'
       },
       {
         id: v1(),
@@ -73,6 +76,7 @@ const initialGlobalState: AppRootStateType = {
         order: 0,
         priority: TaskPriorities.Low,
         description: '',
+        entityStatus: 'idle'
       },
     ],
   },

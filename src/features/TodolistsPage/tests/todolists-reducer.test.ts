@@ -5,7 +5,7 @@ import {
   removeTodolistAC,
   TodolistDomainType,
   todolistsReducer,
-} from './todolists-reducer'
+} from '../todolists-reducer'
 
 let startState: TodolistDomainType[]
 

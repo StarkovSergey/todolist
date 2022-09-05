@@ -11,14 +11,14 @@ import {
   removeTodolistTC,
   TodolistDomainType,
 } from '../todolists-reducer'
-import { addTaskTC, setTasksTC } from '../tasks-reducer'
+import { addTaskTC, setTasksTC, TaskDomainType } from '../tasks-reducer'
 import { Task } from './Task/Task'
 import { TaskStatuses, TaskType } from '../../../api/todolist-api'
 import { useAppDispatch } from '../../../app/store'
 
 type PropsType = {
   todolist: TodolistDomainType
-  tasks: TaskType[]
+  tasks: TaskDomainType[]
   demo?: boolean
 }
 
@@ -33,7 +33,7 @@ export const Todolist = React.memo(({ todolist, tasks, demo = false }: PropsType
     dispatch(setTasksTC(todolist.id))
   }, [dispatch, todolist.id, demo])
 
-  let filteredTasks: TaskType[]
+  let filteredTasks: TaskDomainType[]
   switch (todolist.filter) {
     case 'active':
       filteredTasks = tasks.filter((task) => task.status === TaskStatuses.New)

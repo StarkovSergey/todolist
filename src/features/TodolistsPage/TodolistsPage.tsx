@@ -25,7 +25,7 @@ export const TodolistsPage: React.FC<PropsType> = ({demo = false}) => {
       return
     }
     dispatch(setTodolistsTC())
-  }, [dispatch])
+  }, [dispatch, demo])
 
   const todolistsComponents = todolists.map((todolist) => {
     return (

@@ -130,7 +130,6 @@ export const addTodolistTC =
 export const changeTodolistTitleTC =
   (todolistID: string, title: string): AppThunk =>
   async (dispatch) => {
-
     dispatch(changeTodolistStatusAC(todolistID, 'loading'))
     try {
       const response = await todolistAPI.changeTodolistTitle(todolistID, title)
@@ -149,10 +148,10 @@ export const changeTodolistTitleTC =
 // types
 export type FilterType = 'all' | 'active' | 'completed'
 
-    export type TodolistDomainType = TodolistType & {
-      filter: FilterType
-      status: RequestStatusType
-    }
+export type TodolistDomainType = TodolistType & {
+  filter: FilterType
+  status: RequestStatusType
+}
 
 export type removeTodolistAT = ReturnType<typeof removeTodolistAC>
 export type addTodolistAT = ReturnType<typeof addTodolistAC>
@@ -165,4 +164,3 @@ export type TodolistsActionsType =
   | addTodolistAT
   | setTodolistsAT
   | ReturnType<typeof changeTodolistStatusAC>
-

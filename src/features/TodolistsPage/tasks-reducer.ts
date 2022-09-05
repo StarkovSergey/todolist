@@ -1,8 +1,8 @@
 import { addTodolistAT, changeTodolistStatusAC, removeTodolistAT, setTodolistsAT } from './todolists-reducer'
 import { ResultCodes, TaskPriorities, TaskStatuses, TaskType, todolistAPI } from '../../api/todolist-api'
 import { AppThunk } from '../../app/store'
-import { changeAppStatusAC } from '../../app/app-reducer'
 import { handleAppError, handleNetworkError } from '../../utils/error-utils'
+import { RequestStatusType } from '../../app/app-reducer'
 
 const initialState: TasksStateType = {}
 
@@ -11,12 +11,12 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Tasks
     case 'SET-TASKS':
       return {
         ...state,
-        [action.todolistID]: action.tasks,
+        [action.todolistID]: action.tasks.map((task) => ({ ...task, entityStatus: 'idle' })),
       }
     case 'ADD-TASK':
       return {
         ...state,
-        [action.task.todoListId]: [action.task, ...state[action.task.todoListId]],
+        [action.task.todoListId]: [{ ...action.task, entityStatus: 'idle' }, ...state[action.task.todoListId]],
       }
     case 'REMOVE-TASK':
       return {
@@ -27,7 +27,24 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Tasks
       return {
         ...state,
         [action.task.todoListId]: state[action.task.todoListId].map((task) =>
-          task.id === action.task.id ? action.task : task
+          task.id === action.task.id
+            ? {
+                ...action.task,
+                entityStatus: 'idle',
+              }
+            : task
+        ),
+      }
+    case 'CHANGE-TASK-ENTITY-STATUS':
+      return {
+        ...state,
+        [action.todolistID]: state[action.todolistID].map((task) =>
+          task.id === action.taskID
+            ? {
+                ...task,
+                entityStatus: action.entityStatus,
+              }
+            : task
         ),
       }
     case 'ADD-TODOLIST':
@@ -68,12 +85,17 @@ export const updateTaskAC = (task: TaskType) => ({
   type: 'UPDATE-TASK' as const,
   task,
 })
+export const changeTaskStatusAC = (todolistID: string, taskID: string, entityStatus: RequestStatusType) => ({
+  type: 'CHANGE-TASK-ENTITY-STATUS' as const,
+  todolistID,
+  taskID,
+  entityStatus,
+})
 
 // thunks
 export const setTasksTC =
   (todolistID: string): AppThunk =>
   async (dispatch) => {
-
     dispatch(changeTodolistStatusAC(todolistID, 'loading'))
     try {
       const response = await todolistAPI.getTasks(todolistID)
@@ -88,7 +110,7 @@ export const setTasksTC =
 export const removeTaskTC =
   (todolistID: string, taskID: string): AppThunk =>
   async (dispatch) => {
-    dispatch(changeTodolistStatusAC(todolistID, 'loading'))
+    dispatch(changeTaskStatusAC(todolistID, taskID, 'loading'))
 
     try {
       const response = await todolistAPI.removeTask(todolistID, taskID)
@@ -97,10 +119,10 @@ export const removeTaskTC =
         dispatch(removeTaskAC(todolistID, taskID))
         dispatch(changeTodolistStatusAC(todolistID, 'succeeded'))
       } else {
-        handleAppError(dispatch, response.data, todolistID)
+        handleAppError(dispatch, response.data, todolistID, taskID)
       }
     } catch (err) {
-      handleNetworkError(dispatch, err, todolistID)
+      handleNetworkError(dispatch, err, todolistID, taskID)
     }
   }
 
@@ -129,7 +151,7 @@ export const updateTaskTC =
     const task = getState().tasks[todolistID].find((task) => task.id === taskID)
 
     if (task) {
-      dispatch(changeTodolistStatusAC(todolistID, 'loading'))
+      dispatch(changeTaskStatusAC(todolistID, taskID, 'loading'))
 
       try {
         const response = await todolistAPI.updateTask(todolistID, taskID, {
@@ -144,9 +166,8 @@ export const updateTaskTC =
 
         if (response.data.resultCode === ResultCodes.Success) {
           dispatch(updateTaskAC(response.data.data.item))
-          dispatch(changeTodolistStatusAC(todolistID, 'succeeded'))
         } else {
-          handleAppError(dispatch, response.data, todolistID)
+          handleAppError(dispatch, response.data, todolistID, taskID)
         }
       } catch (err) {
         handleNetworkError(dispatch, err)
@@ -156,7 +177,11 @@ export const updateTaskTC =
 
 // types
 export type TasksStateType = {
-  [id: string]: TaskType[]
+  [id: string]: TaskDomainType[]
+}
+
+export type TaskDomainType = TaskType & {
+  entityStatus: RequestStatusType
 }
 
 export type TasksActionsType =
@@ -167,6 +192,7 @@ export type TasksActionsType =
   | removeTodolistAT
   | setTodolistsAT
   | ReturnType<typeof setTasksAC>
+  | ReturnType<typeof changeTaskStatusAC>
 
 type updateTaskModel = {
   title?: string
