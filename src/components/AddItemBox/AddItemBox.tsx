@@ -56,6 +56,7 @@ export const AddItemBox = React.memo((props: PropsType) => {
         variant="outlined"
         size="small"
         autoComplete="off"
+        disabled={props.disabled}
       />
 
       <IconButton onClick={addItem} color="secondary" aria-label="add item" size="small" disabled={props.disabled}>

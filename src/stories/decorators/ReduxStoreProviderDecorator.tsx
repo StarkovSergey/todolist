@@ -9,16 +9,18 @@ import { todolistsReducer } from '../../features/TodolistsPage/todolists-reducer
 import { v1 } from 'uuid'
 import { TaskPriorities, TaskStatuses } from '../../api/todolist-api'
 import thunkMiddleware from 'redux-thunk'
+import { appReducer } from '../../app/app-reducer'
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
   todolists: todolistsReducer,
+  app: appReducer
 })
 
 const initialGlobalState: AppRootStateType = {
   todolists: [
     { id: 'todolistId1', title: 'What to learn', filter: 'all', addedDate: '', order: 0, status: 'idle' },
-    { id: 'todolistId2', title: 'What to buy', filter: 'all', addedDate: '', order: 0, status: 'idle' },
+    { id: 'todolistId2', title: 'What to buy', filter: 'all', addedDate: '', order: 0, status: 'loading' },
   ],
   tasks: {
     todolistId1: [

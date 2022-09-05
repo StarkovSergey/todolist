@@ -7,7 +7,11 @@ import { Grid, Paper } from '@mui/material'
 import { Todolist } from './Todolist/Todolist'
 import { AddItemBox } from '../../components/AddItemBox/AddItemBox'
 
-export const TodolistsPage = () => {
+type PropsType = {
+  demo?: boolean
+}
+
+export const TodolistsPage: React.FC<PropsType> = ({demo = false}) => {
   const dispatch = useAppDispatch()
   const todolists = useSelector<AppRootStateType, TodolistDomainType[]>((state) => state.todolists)
   const tasks = useSelector<AppRootStateType, TasksStateType>((state) => state.tasks)
@@ -17,6 +21,9 @@ export const TodolistsPage = () => {
   }
 
   useEffect(() => {
+    if (demo) {
+      return
+    }
     dispatch(setTodolistsTC())
   }, [dispatch])
 
@@ -24,7 +31,7 @@ export const TodolistsPage = () => {
     return (
       <Grid item key={todolist.id}>
         <Paper elevation={3} sx={{padding: '20px'}}>
-          <Todolist todolist={todolist} tasks={tasks[todolist.id]}/>
+          <Todolist todolist={todolist} tasks={tasks[todolist.id]} demo={demo}/>
         </Paper>
       </Grid>
     )

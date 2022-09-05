@@ -4,6 +4,7 @@ import { TextField } from '@mui/material'
 type PropsType = {
   title: string
   changeTitle: (title: string) => void
+  disabled?: boolean
 }
 
 export const EditableSpan = React.memo((props: PropsType) => {
@@ -11,6 +12,9 @@ export const EditableSpan = React.memo((props: PropsType) => {
   const [title, setTitle] = useState(props.title)
 
   const turnOnEditMode = () => {
+    if (props.disabled) {
+      return
+    }
     setEdited(true)
   }
 
@@ -41,7 +45,8 @@ export const EditableSpan = React.memo((props: PropsType) => {
       autoFocus
       variant="outlined"
       size="small"
-      sx={{maxWidth: "fit-content"}}
+      sx={{ maxWidth: 'fit-content' }}
+      disabled={props.disabled}
     />
   ) : (
     <span onDoubleClick={turnOnEditMode}>{props.title}</span>

@@ -31,3 +31,8 @@ export const WithoutPlaceholder = Template.bind({})
 WithoutPlaceholder.args = {
   addItem: action('Add item'),
 }
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  disabled: true
+}

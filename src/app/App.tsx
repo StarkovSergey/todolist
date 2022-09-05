@@ -5,12 +5,16 @@ import { AppBarMUIComponent } from '../components/AppBar/AppBarMUIComponent'
 import { TodolistsPage } from '../features/TodolistsPage/TodolistsPage'
 import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar'
 
-function App() {
+type PropsType = {
+  demo?: boolean
+}
+
+function App({demo = false}: PropsType) {
   return (
     <div className="App">
       <AppBarMUIComponent />
       <Container>
-        <TodolistsPage />
+        <TodolistsPage demo={demo}/>
       </Container>
 
       <ErrorSnackbar/>

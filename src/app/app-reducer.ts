@@ -17,7 +17,7 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 }
 
 // types
-type AppStateType = {
+export type AppStateType = {
   status: RequestStatusType
   error: null | string
 }

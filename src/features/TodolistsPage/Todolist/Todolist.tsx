@@ -19,14 +19,19 @@ import { useAppDispatch } from '../../../app/store'
 type PropsType = {
   todolist: TodolistDomainType
   tasks: TaskType[]
+  demo?: boolean
 }
 
-export const Todolist = React.memo(({ todolist, tasks }: PropsType) => {
+export const Todolist = React.memo(({ todolist, tasks, demo = false }: PropsType) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    if (demo) {
+      return
+    }
+
     dispatch(setTasksTC(todolist.id))
-  }, [dispatch, todolist.id])
+  }, [dispatch, todolist.id, demo])
 
   let filteredTasks: TaskType[]
   switch (todolist.filter) {
@@ -75,7 +80,7 @@ export const Todolist = React.memo(({ todolist, tasks }: PropsType) => {
         <CircularProgress size={'20px'} color="secondary" sx={{ position: 'absolute', right: '-12px', top: '-12px' }} />
       )}
       <h3 className={style.header}>
-        <EditableSpan title={todolist.title} changeTitle={changeTodolistTitle} />
+        <EditableSpan title={todolist.title} changeTitle={changeTodolistTitle} disabled={todolist.status === 'loading'}/>
         <IconButton onClick={removeTodolist} size="small" disabled={todolist.status === 'loading'}>
           <DeleteIcon />
         </IconButton>
