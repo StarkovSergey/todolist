@@ -1,4 +1,5 @@
 .todolist {
+  position: relative;
   width: 250px;
 }
 

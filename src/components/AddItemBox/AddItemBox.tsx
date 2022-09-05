@@ -6,6 +6,7 @@ import style from './AddItemBox.module.css'
 export type PropsType = {
   addItem: (title: string) => void
   placeholder?: string
+  disabled?: boolean
 }
 
 export const AddItemBox = React.memo((props: PropsType) => {
@@ -15,6 +16,11 @@ export const AddItemBox = React.memo((props: PropsType) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const addItem = () => {
+    if (title.length >= 100) {
+      setError('max text length is 100 symbols')
+      return
+    }
+
     if (title.trim()) {
       props.addItem(title)
       setTitle('')
@@ -52,7 +58,7 @@ export const AddItemBox = React.memo((props: PropsType) => {
         autoComplete="off"
       />
 
-      <IconButton onClick={addItem} color="secondary" aria-label="add item" size="small">
+      <IconButton onClick={addItem} color="secondary" aria-label="add item" size="small" disabled={props.disabled}>
         <AddCircleIcon />
       </IconButton>
     </div>

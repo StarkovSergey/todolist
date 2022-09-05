@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
 import { AddItemBox } from '../../../components/AddItemBox/AddItemBox'
-import { Button, IconButton } from '@mui/material'
+import { Button, CircularProgress, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import style from './Todolist.module.css'
 import {
@@ -21,13 +21,12 @@ type PropsType = {
   tasks: TaskType[]
 }
 
-export const Todolist = React.memo(({todolist, tasks}: PropsType) => {
+export const Todolist = React.memo(({ todolist, tasks }: PropsType) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(setTasksTC(todolist.id))
   }, [dispatch, todolist.id])
-
 
   let filteredTasks: TaskType[]
   switch (todolist.filter) {
@@ -41,44 +40,48 @@ export const Todolist = React.memo(({todolist, tasks}: PropsType) => {
       filteredTasks = tasks
   }
 
-  const changeTodolistFilter = useCallback((filter: FilterType) => {
-    dispatch(changeTodolistFilterAC(todolist.id, filter))
-  }, [dispatch, todolist.id])
+  const changeTodolistFilter = useCallback(
+    (filter: FilterType) => {
+      dispatch(changeTodolistFilterAC(todolist.id, filter))
+    },
+    [dispatch, todolist.id]
+  )
 
   const removeTodolist = useCallback(() => {
     dispatch(removeTodolistTC(todolist.id))
   }, [dispatch, todolist.id])
 
-  const changeTodolistTitle = useCallback((title: string) => {
-    dispatch(changeTodolistTitleTC(todolist.id, title))
-  }, [dispatch, todolist.id])
+  const changeTodolistTitle = useCallback(
+    (title: string) => {
+      dispatch(changeTodolistTitleTC(todolist.id, title))
+    },
+    [dispatch, todolist.id]
+  )
 
-  const addTask = useCallback((title: string) => {
-    dispatch(addTaskTC(todolist.id, title))
-  }, [dispatch, todolist.id])
+  const addTask = useCallback(
+    (title: string) => {
+      dispatch(addTaskTC(todolist.id, title))
+    },
+    [dispatch, todolist.id]
+  )
 
   const tasksElements = filteredTasks.map((task) => {
-    return (
-      <Task
-        key={task.id}
-        task={task}
-        todolistID={todolist.id}
-      />
-    )
+    return <Task key={task.id} task={task} todolistID={todolist.id} />
   })
 
   return (
     <div className={style.todolist}>
+      {todolist.status === 'loading' && (
+        <CircularProgress size={'20px'} color="secondary" sx={{ position: 'absolute', right: '-12px', top: '-12px' }} />
+      )}
       <h3 className={style.header}>
         <EditableSpan title={todolist.title} changeTitle={changeTodolistTitle} />
-        <IconButton onClick={removeTodolist} size="small">
+        <IconButton onClick={removeTodolist} size="small" disabled={todolist.status === 'loading'}>
           <DeleteIcon />
         </IconButton>
       </h3>
-      <AddItemBox addItem={addTask} placeholder={'Add new task'} />
-      <ul className={style['tasks-list']}>
-        {tasksElements}
-      </ul>
+      <AddItemBox addItem={addTask} placeholder={'Add new task'} disabled={todolist.status === 'loading'} />
+      <ul className={style['tasks-list']}>{tasksElements}</ul>
       <div className={style['button-box']}>
         <Button
           onClick={() => changeTodolistFilter('all')}

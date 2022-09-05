@@ -11,8 +11,8 @@ let startState: TodolistDomainType[]
 
 beforeEach(() => {
   startState = [
-    { id: '1', title: 'What to learn', filter: 'all', order: 0, addedDate: '' },
-    { id: '2', title: 'What to buy', filter: 'active', order: 0, addedDate: '' },
+    { id: '1', title: 'What to learn', filter: 'all', order: 0, addedDate: '', status: 'idle' },
+    { id: '2', title: 'What to buy', filter: 'active', order: 0, addedDate: '', status: 'idle' },
   ]
 })
 
@@ -40,7 +40,7 @@ test('todolist title should be changed', () => {
 
 test('todolist should be added', () => {
   const newTodolistTitle = 'The Hobbit'
-  const newTodolist: TodolistDomainType = { id: '6', title: newTodolistTitle, filter: 'active', order: 0, addedDate: '' }
+  const newTodolist: TodolistDomainType = { id: '6', title: newTodolistTitle, filter: 'active', order: 0, addedDate: '', status: 'idle' }
   const action = addTodolistAC(newTodolist)
 
   const endState = todolistsReducer(startState, action)

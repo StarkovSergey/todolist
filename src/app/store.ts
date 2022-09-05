@@ -18,7 +18,7 @@ export const useAppSelector : TypedUseSelectorHook<AppRootStateType> = useSelect
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 // types
-type ActionsType = TodolistsActionsType | TasksActionsType | AppActionsType
+export type ActionsType = TodolistsActionsType | TasksActionsType | AppActionsType
 export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, ActionsType>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, ActionsType>

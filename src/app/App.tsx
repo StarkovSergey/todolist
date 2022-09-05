@@ -3,6 +3,7 @@ import './App.css'
 import { Container } from '@mui/material'
 import { AppBarMUIComponent } from '../components/AppBar/AppBarMUIComponent'
 import { TodolistsPage } from '../features/TodolistsPage/TodolistsPage'
+import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar'
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
       <Container>
         <TodolistsPage />
       </Container>
+
+      <ErrorSnackbar/>
     </div>
   )
 }

@@ -6,7 +6,7 @@ let tasksStartState: TasksStateType
 let todolistsStartState: TodolistDomainType[]
 
 beforeEach(() => {
-  todolistsStartState = [{ id: 'todolistID1', title: 'What to learn', filter: 'all', addedDate: '', order: 0 }]
+  todolistsStartState = [{ id: 'todolistID1', title: 'What to learn', filter: 'all', addedDate: '', order: 0, status: 'idle' }]
   tasksStartState = {
     todolistID1: [
       { id: 'taskID1', title: 'JS', status: TaskStatuses.New, todoListId: '1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '' },
@@ -16,7 +16,7 @@ beforeEach(() => {
 })
 
 test('adding todolist should cause creating certain id field in tasks state', () => {
-  const newTodolist: TodolistDomainType = { id: '6', title: 'The Hobbit', filter: 'active', order: 0, addedDate: '' }
+  const newTodolist: TodolistDomainType = { id: '6', title: 'The Hobbit', filter: 'active', order: 0, addedDate: '', status: 'idle' }
   const action = addTodolistAC(newTodolist)
 
   const todolistsEndState = todolistsReducer(todolistsStartState, action)
