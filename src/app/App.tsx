@@ -14,10 +14,10 @@ function App({demo = false}: PropsType) {
     <div className="App">
       <AppBarMUIComponent />
       <Container>
-        <TodolistsPage demo={demo}/>
+        <TodolistsPage demo={demo} />
       </Container>
 
-      <ErrorSnackbar/>
+      <ErrorSnackbar />
     </div>
   )
 }

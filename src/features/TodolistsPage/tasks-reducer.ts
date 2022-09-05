@@ -170,7 +170,7 @@ export const updateTaskTC =
           handleAppError(dispatch, response.data, todolistID, taskID)
         }
       } catch (err) {
-        handleNetworkError(dispatch, err)
+        handleNetworkError(dispatch, err, todolistID, taskID)
       }
     }
   }

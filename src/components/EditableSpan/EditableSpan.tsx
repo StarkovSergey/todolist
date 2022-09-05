@@ -30,11 +30,10 @@ export const EditableSpan = React.memo((props: PropsType) => {
   }
 
   const turnOffEditMode = () => {
-    if (title.trim()) {
+    if (title.trim() && title !== props.title) {
       props.changeTitle(title)
     }
     setEdited(false)
-    props.changeTitle(title)
   }
 
   return edited ? (
