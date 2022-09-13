@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
 import { AddItemBox } from '../../../components/AddItemBox/AddItemBox'
 import { Button, CircularProgress, IconButton } from '@mui/material'
@@ -11,7 +11,7 @@ import {
   removeTodolistTC,
   TodolistDomainType,
 } from '../todolists-reducer'
-import { addTaskTC, setTasksTC, TaskDomainType } from '../tasks-reducer'
+import { addTaskTC, TaskDomainType } from '../tasks-reducer'
 import { Task } from './Task/Task'
 import { TaskStatuses } from '../../../api/todolist-api'
 import { useAppDispatch } from '../../../app/store'
@@ -24,14 +24,6 @@ type PropsType = {
 
 export const Todolist = React.memo(({ todolist, tasks, demo = false }: PropsType) => {
   const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    if (demo) {
-      return
-    }
-
-    dispatch(setTasksTC(todolist.id))
-  }, [dispatch, todolist.id, demo])
 
   let filteredTasks: TaskDomainType[]
   switch (todolist.filter) {

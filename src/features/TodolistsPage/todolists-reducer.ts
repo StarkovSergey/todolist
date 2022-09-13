@@ -2,6 +2,8 @@ import { ResultCodes, todolistAPI, TodolistType } from '../../api/todolist-api'
 import { AppThunk } from '../../app/store'
 import { changeAppStatusAC, RequestStatusType } from '../../app/app-reducer'
 import { handleAppError, handleNetworkError } from '../../utils/error-utils'
+import { useEffect } from 'react'
+import { setTasksTC } from './tasks-reducer'
 
 const initialState: TodolistDomainType[] = []
 
@@ -85,6 +87,10 @@ export const setTodolistsTC = (): AppThunk => async (dispatch) => {
     const response = await todolistAPI.getTodolists()
     dispatch(setTodolistsAC(response.data))
     dispatch(changeAppStatusAC('succeeded'))
+
+    response.data.forEach((todolist) => {
+      dispatch(setTasksTC(todolist.id))
+    })
   } catch (err) {
     handleNetworkError(dispatch, err)
   }
