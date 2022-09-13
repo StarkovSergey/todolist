@@ -1,4 +1,4 @@
-import { AppRootStateType, useAppDispatch } from '../../app/store'
+import { AppRootStateType, useAppDispatch, useAppSelector } from '../../app/store'
 import { useSelector } from 'react-redux'
 import { addTodolistTC, setTodolistsTC, TodolistDomainType } from './todolists-reducer'
 import { TasksStateType } from './tasks-reducer'
@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import { Grid, Paper } from '@mui/material'
 import { Todolist } from './Todolist/Todolist'
 import { AddItemBox } from '../../components/AddItemBox/AddItemBox'
+import { Login } from '../Login/Login'
 
 type PropsType = {
   demo?: boolean
@@ -13,19 +14,24 @@ type PropsType = {
 
 export const TodolistsPage: React.FC<PropsType> = ({demo = false}) => {
   const dispatch = useAppDispatch()
-  const todolists = useSelector<AppRootStateType, TodolistDomainType[]>((state) => state.todolists)
-  const tasks = useSelector<AppRootStateType, TasksStateType>((state) => state.tasks)
+  const todolists = useAppSelector((state) => state.todolists)
+  const tasks = useAppSelector((state) => state.tasks)
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
   const addTodolist = (title: string) => {
     dispatch(addTodolistTC(title))
   }
 
   useEffect(() => {
-    if (demo) {
+    if (demo || !isLoggedIn) {
       return
     }
     dispatch(setTodolistsTC())
-  }, [dispatch, demo])
+  }, [dispatch, isLoggedIn, demo])
+
+  if (!isLoggedIn) {
+    return <Login/>
+  }
 
   const todolistsComponents = todolists.map((todolist) => {
     return (

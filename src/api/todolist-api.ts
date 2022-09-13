@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const instance = axios.create({
+export const instance = axios.create({
   withCredentials: true,
   baseURL: 'https://social-network.samuraijs.com/api/1.1/',
   headers: {
@@ -36,6 +36,12 @@ export const todolistAPI = {
 }
 
 // types
+export type LoginParamsType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha?: string
+}
 
 export type TodolistType = {
   id: string

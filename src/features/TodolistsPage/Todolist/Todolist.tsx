@@ -13,7 +13,7 @@ import {
 } from '../todolists-reducer'
 import { addTaskTC, setTasksTC, TaskDomainType } from '../tasks-reducer'
 import { Task } from './Task/Task'
-import { TaskStatuses, TaskType } from '../../../api/todolist-api'
+import { TaskStatuses } from '../../../api/todolist-api'
 import { useAppDispatch } from '../../../app/store'
 
 type PropsType = {
