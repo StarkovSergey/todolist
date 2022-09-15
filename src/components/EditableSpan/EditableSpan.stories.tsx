@@ -8,18 +8,18 @@ export default {
   component: EditableSpan,
   argTypes: {
     title: {
-      description: 'text value in the editable span'
-    }
+      description: 'text value in the editable span',
+    },
   },
   args: {
-    title: 'some text'
+    title: 'some text',
   },
-  decorators: [MUIThemeDecorator]
+  decorators: [MUIThemeDecorator],
 } as ComponentMeta<typeof EditableSpan>
 
-const Template: ComponentStory<typeof EditableSpan> = (args) => <EditableSpan {...args}/>
+const Template: ComponentStory<typeof EditableSpan> = (args) => <EditableSpan {...args} />
 
 export const EditableSpanExample = Template.bind({})
 EditableSpanExample.args = {
-  changeTitle: action('value is changed')
+  changeTitle: action('value is changed'),
 }

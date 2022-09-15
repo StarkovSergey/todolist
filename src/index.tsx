@@ -1,14 +1,17 @@
 import React from 'react'
+
+import { createTheme, ThemeProvider } from '@mui/material'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import App from './app/App'
-import reportWebVitals from './reportWebVitals'
-import { createTheme, ThemeProvider } from '@mui/material'
 import { Provider } from 'react-redux'
-import { store } from './app/store'
 import { BrowserRouter } from 'react-router-dom'
 
+import App from './app/App'
+import { store } from './app/store'
+import reportWebVitals from './reportWebVitals'
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
 export const theme = createTheme({
   palette: {
     primary: {

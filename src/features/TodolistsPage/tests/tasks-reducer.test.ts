@@ -6,17 +6,88 @@ let startState: TasksStateType
 let testTask: TaskType
 
 beforeEach(() => {
-  testTask = { id: 'id10', title: 'TestTask', status: TaskStatuses.New, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '' }
+  testTask = {
+    id: 'id10',
+    title: 'TestTask',
+    status: TaskStatuses.New,
+    todoListId: 'id1',
+    startDate: '',
+    addedDate: '',
+    deadline: '',
+    order: 0,
+    priority: TaskPriorities.Low,
+    description: '',
+  }
 
   startState = {
     id1: [
-      { id: 'id1', title: 'HTML', status: TaskStatuses.Completed, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
-      { id: 'id2', title: 'CSS', status: TaskStatuses.New, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
-      { id: 'id3', title: 'JS', status: TaskStatuses.New, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
+      {
+        id: 'id1',
+        title: 'HTML',
+        status: TaskStatuses.Completed,
+        todoListId: 'id1',
+        startDate: '',
+        addedDate: '',
+        deadline: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+        description: '',
+        entityStatus: 'idle',
+      },
+      {
+        id: 'id2',
+        title: 'CSS',
+        status: TaskStatuses.New,
+        todoListId: 'id1',
+        startDate: '',
+        addedDate: '',
+        deadline: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+        description: '',
+        entityStatus: 'idle',
+      },
+      {
+        id: 'id3',
+        title: 'JS',
+        status: TaskStatuses.New,
+        todoListId: 'id1',
+        startDate: '',
+        addedDate: '',
+        deadline: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+        description: '',
+        entityStatus: 'idle',
+      },
     ],
     id2: [
-      { id: 'id1', title: 'Milk', status: TaskStatuses.Completed, todoListId: 'id2', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
-      { id: 'id2', title: 'Cookie', status: TaskStatuses.Completed, todoListId: 'id2', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '', entityStatus: 'idle' },
+      {
+        id: 'id1',
+        title: 'Milk',
+        status: TaskStatuses.Completed,
+        todoListId: 'id2',
+        startDate: '',
+        addedDate: '',
+        deadline: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+        description: '',
+        entityStatus: 'idle',
+      },
+      {
+        id: 'id2',
+        title: 'Cookie',
+        status: TaskStatuses.Completed,
+        todoListId: 'id2',
+        startDate: '',
+        addedDate: '',
+        deadline: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+        description: '',
+        entityStatus: 'idle',
+      },
     ],
   }
 })
@@ -35,7 +106,18 @@ test('task should be removed', () => {
 })
 
 test('task status should be changed', () => {
-  const updatedTask: TaskType = { id: 'id2', title: 'CSS', status: TaskStatuses.Completed, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '' }
+  const updatedTask: TaskType = {
+    id: 'id2',
+    title: 'CSS',
+    status: TaskStatuses.Completed,
+    todoListId: 'id1',
+    startDate: '',
+    addedDate: '',
+    deadline: '',
+    order: 0,
+    priority: TaskPriorities.Low,
+    description: '',
+  }
   const endState = tasksReducer(startState, updateTaskAC(updatedTask))
 
   expect(endState.id1[1].status).toBe(TaskStatuses.Completed)
@@ -43,7 +125,18 @@ test('task status should be changed', () => {
 
 test('task title should be changed', () => {
   const newTaskTitle = 'React'
-  const updatedTask: TaskType = { id: 'id2', title: newTaskTitle, status: TaskStatuses.Completed, todoListId: 'id1', startDate: '', addedDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, description: '' }
+  const updatedTask: TaskType = {
+    id: 'id2',
+    title: newTaskTitle,
+    status: TaskStatuses.Completed,
+    todoListId: 'id1',
+    startDate: '',
+    addedDate: '',
+    deadline: '',
+    order: 0,
+    priority: TaskPriorities.Low,
+    description: '',
+  }
 
   const endState = tasksReducer(startState, updateTaskAC(updatedTask))
 

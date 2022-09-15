@@ -49,6 +49,8 @@ export const EditableSpan = React.memo((props: PropsType) => {
       disabled={props.disabled}
     />
   ) : (
-    <span onDoubleClick={turnOnEditMode} className={props.disabled ? style.disabled : ''}>{props.title}</span>
+    <span onDoubleClick={turnOnEditMode} className={props.disabled ? style.disabled : ''}>
+      {props.title}
+    </span>
   )
 })

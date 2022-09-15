@@ -72,7 +72,11 @@ export const Todolist = React.memo(({ todolist, tasks, demo = false }: PropsType
         <CircularProgress size={'20px'} color="secondary" sx={{ position: 'absolute', right: '-12px', top: '-12px' }} />
       )}
       <h3 className={style.header}>
-        <EditableSpan title={todolist.title} changeTitle={changeTodolistTitle} disabled={todolist.status === 'loading'}/>
+        <EditableSpan
+          title={todolist.title}
+          changeTitle={changeTodolistTitle}
+          disabled={todolist.status === 'loading'}
+        />
         <IconButton onClick={removeTodolist} size="small" disabled={todolist.status === 'loading'}>
           <DeleteIcon />
         </IconButton>
@@ -83,19 +87,22 @@ export const Todolist = React.memo(({ todolist, tasks, demo = false }: PropsType
         <Button
           onClick={() => changeTodolistFilter('all')}
           variant={todolist.filter === 'all' ? 'contained' : 'outlined'}
-          size="small">
+          size="small"
+        >
           All
         </Button>
         <Button
           onClick={() => changeTodolistFilter('active')}
           variant={todolist.filter === 'active' ? 'contained' : 'outlined'}
-          size="small">
+          size="small"
+        >
           Active
         </Button>
         <Button
           onClick={() => changeTodolistFilter('completed')}
           variant={todolist.filter === 'completed' ? 'contained' : 'outlined'}
-          size="small">
+          size="small"
+        >
           Completed
         </Button>
       </div>

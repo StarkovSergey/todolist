@@ -34,7 +34,7 @@ export const Task = React.memo(({ task, todolistID }: PropsType) => {
   return (
     <li key={task.id} className={style.item}>
       {task.entityStatus === 'loading' && (
-        <CircularProgress size={'15px'} color="secondary" sx={{position: 'absolute', left: '-12px'}}/>
+        <CircularProgress size={'15px'} color="secondary" sx={{ position: 'absolute', left: '-12px' }} />
       )}
       <Checkbox
         checked={task.status === TaskStatuses.Completed}

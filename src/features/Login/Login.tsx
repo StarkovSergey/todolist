@@ -44,7 +44,8 @@ export const Login = () => {
             width: '300px',
             margin: '0 auto',
             marginTop: '50px',
-          }}>
+          }}
+        >
           <div>
             <p style={{ marginBottom: '0' }}>
               To log in get registered{' '}

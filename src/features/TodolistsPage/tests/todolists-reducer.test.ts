@@ -1,6 +1,7 @@
 import {
   addTodolistAC,
-  changeTodolistFilterAC, changeTodolistStatusAC,
+  changeTodolistFilterAC,
+  changeTodolistStatusAC,
   changeTodolistTitleAC,
   removeTodolistAC,
   TodolistDomainType,
@@ -40,7 +41,14 @@ test('todolist title should be changed', () => {
 
 test('todolist should be added', () => {
   const newTodolistTitle = 'The Hobbit'
-  const newTodolist: TodolistDomainType = { id: '6', title: newTodolistTitle, filter: 'active', order: 0, addedDate: '', status: 'idle' }
+  const newTodolist: TodolistDomainType = {
+    id: '6',
+    title: newTodolistTitle,
+    filter: 'active',
+    order: 0,
+    addedDate: '',
+    status: 'idle',
+  }
   const action = addTodolistAC(newTodolist)
 
   const endState = todolistsReducer(startState, action)

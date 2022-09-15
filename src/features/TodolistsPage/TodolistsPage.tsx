@@ -1,22 +1,23 @@
-import { AppRootStateType, useAppDispatch, useAppSelector } from '../../app/store'
-import { useSelector } from 'react-redux'
-import { addTodolistTC, setTodolistsTC, TodolistDomainType } from './todolists-reducer'
-import { TasksStateType } from './tasks-reducer'
 import React, { useEffect } from 'react'
+
 import { Grid, Paper } from '@mui/material'
-import { Todolist } from './Todolist/Todolist'
+
+import { useAppDispatch, useAppSelector } from '../../app/store'
 import { AddItemBox } from '../../components/AddItemBox/AddItemBox'
 import { Login } from '../Login/Login'
+
+import { Todolist } from './Todolist/Todolist'
+import { addTodolistTC, setTodolistsTC } from './todolists-reducer'
 
 type PropsType = {
   demo?: boolean
 }
 
-export const TodolistsPage: React.FC<PropsType> = ({demo = false}) => {
+export const TodolistsPage: React.FC<PropsType> = ({ demo = false }) => {
   const dispatch = useAppDispatch()
-  const todolists = useAppSelector((state) => state.todolists)
-  const tasks = useAppSelector((state) => state.tasks)
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+  const todolists = useAppSelector(state => state.todolists)
+  const tasks = useAppSelector(state => state.tasks)
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   const addTodolist = (title: string) => {
     dispatch(addTodolistTC(title))
@@ -30,26 +31,25 @@ export const TodolistsPage: React.FC<PropsType> = ({demo = false}) => {
   }, [dispatch, isLoggedIn, demo])
 
   if (!isLoggedIn) {
-    return <Login/>
+    return <Login />
   }
 
-  const todolistsComponents = todolists.map((todolist) => {
+  const todolistsComponents = todolists.map(todolist => {
     return (
       <Grid item key={todolist.id}>
-        <Paper elevation={3} sx={{padding: '20px'}}>
-          <Todolist todolist={todolist} tasks={tasks[todolist.id]} demo={demo}/>
+        <Paper elevation={3} sx={{ padding: '20px' }}>
+          <Todolist todolist={todolist} tasks={tasks[todolist.id]} demo={demo} />
         </Paper>
       </Grid>
     )
   })
 
-
   return (
     <>
-      <Grid container sx={{padding: '20px 0'}}>
-        <AddItemBox addItem={addTodolist} placeholder="Add new todolist"/>
+      <Grid container sx={{ padding: '20px 0' }}>
+        <AddItemBox addItem={addTodolist} placeholder="Add new todolist" />
       </Grid>
-      <Grid container spacing={{xs: 2, sm: 4}}>
+      <Grid container spacing={{ xs: 2, sm: 4 }}>
         {todolistsComponents}
       </Grid>
     </>

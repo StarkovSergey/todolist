@@ -9,17 +9,17 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const initialState: AppStateType = {
   status: 'idle',
   error: null,
-  isInitialized: false
+  isInitialized: false,
 }
 
 export const appReducer = (state: AppStateType = initialState, action: AppActionsType): AppStateType => {
   switch (action.type) {
     case 'APP/CHANGE-STATUS':
-      return {...state, status: action.status}
+      return { ...state, status: action.status }
     case 'APP/SET-ERROR':
-      return {...state, error: action.error}
+      return { ...state, error: action.error }
     case 'APP/SET-INITIALIZED':
-      return {...state, isInitialized: action.isInitialized}
+      return { ...state, isInitialized: action.isInitialized }
     default:
       return state
   }
@@ -28,17 +28,17 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 // actions
 export const changeAppStatusAC = (status: RequestStatusType) => ({
   type: 'APP/CHANGE-STATUS' as const,
-  status
+  status,
 })
 
 export const setAppErrorAC = (error: string | null) => ({
   type: 'APP/SET-ERROR' as const,
-  error
+  error,
 })
 
 export const setInitializedAC = (value: boolean) => ({
   type: 'APP/SET-INITIALIZED' as const,
-  isInitialized: value
+  isInitialized: value,
 })
 
 // thunks

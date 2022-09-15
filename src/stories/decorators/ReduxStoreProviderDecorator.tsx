@@ -14,7 +14,7 @@ import { appReducer } from '../../app/app-reducer'
 const rootReducer = combineReducers({
   tasks: tasksReducer,
   todolists: todolistsReducer,
-  app: appReducer
+  app: appReducer,
 })
 
 const initialGlobalState: AppRootStateType = {
@@ -35,7 +35,7 @@ const initialGlobalState: AppRootStateType = {
         order: 0,
         priority: TaskPriorities.Low,
         description: '',
-        entityStatus: 'idle'
+        entityStatus: 'idle',
       },
       {
         id: v1(),
@@ -48,7 +48,7 @@ const initialGlobalState: AppRootStateType = {
         order: 0,
         priority: TaskPriorities.Low,
         description: '',
-        entityStatus: 'idle'
+        entityStatus: 'idle',
       },
     ],
     todolistId2: [
@@ -63,7 +63,7 @@ const initialGlobalState: AppRootStateType = {
         order: 0,
         priority: TaskPriorities.Low,
         description: '',
-        entityStatus: 'idle'
+        entityStatus: 'idle',
       },
       {
         id: v1(),
@@ -76,18 +76,18 @@ const initialGlobalState: AppRootStateType = {
         order: 0,
         priority: TaskPriorities.Low,
         description: '',
-        entityStatus: 'idle'
+        entityStatus: 'idle',
       },
     ],
   },
   app: {
     status: 'idle',
     error: null,
-    isInitialized: true
+    isInitialized: true,
   },
   auth: {
-    isLoggedIn: true
-  }
+    isLoggedIn: true,
+  },
 }
 
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState, applyMiddleware(thunkMiddleware))
