@@ -1,6 +1,6 @@
-import { addTodolistAC, TodolistDomainType, todolistsReducer } from '../todolists-reducer'
-import { tasksReducer, TasksStateType } from '../tasks-reducer'
 import { TaskPriorities, TaskStatuses } from '../../../api/todolist-api'
+import { tasksReducer, TasksStateType } from '../tasks-reducer'
+import { addTodolist, TodolistDomainType, todolistsReducer } from '../todolists-reducer'
 
 let tasksStartState: TasksStateType
 let todolistsStartState: TodolistDomainType[]
@@ -50,11 +50,11 @@ test('adding todolist should cause creating certain id field in tasks state', ()
     addedDate: '',
     status: 'idle',
   }
-  const action = addTodolistAC(newTodolist)
+  const action = addTodolist({ todolist: newTodolist })
 
   const todolistsEndState = todolistsReducer(todolistsStartState, action)
   const tasksEndState = tasksReducer(tasksStartState, action)
 
-  expect(todolistsEndState[0].id).toBe(action.todolist.id)
-  expect(tasksEndState[action.todolist.id]).toBeDefined()
+  expect(todolistsEndState[0].id).toBe(action.payload.todolist.id)
+  expect(tasksEndState[action.payload.todolist.id]).toBeDefined()
 })

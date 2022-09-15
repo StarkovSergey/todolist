@@ -2,47 +2,36 @@ import axios from 'axios'
 import { Dispatch } from 'redux'
 
 import { ResponseType } from '../api/todolist-api'
-import { changeAppStatusAC, setAppErrorAC } from '../app/app-reducer'
-import { ActionsType } from '../app/store'
-import { changeTaskStatusAC } from '../features/TodolistsPage/tasks-reducer'
-import { changeTodolistStatusAC } from '../features/TodolistsPage/todolists-reducer'
+import { changeAppStatus, setAppError } from '../app/app-reducer'
+import { changeTaskStatus } from '../features/TodolistsPage/tasks-reducer'
+import { changeTodolistStatus } from '../features/TodolistsPage/todolists-reducer'
 
-export const handleNetworkError = (
-  dispatch: Dispatch<ActionsType>,
-  err: unknown,
-  todolistID?: string,
-  taskID?: string
-) => {
+export const handleNetworkError = (dispatch: Dispatch, err: unknown, todolistID?: string, taskID?: string) => {
   if (axios.isAxiosError(err)) {
-    dispatch(setAppErrorAC(err.message))
+    dispatch(setAppError({ error: err.message }))
   }
 
   if (todolistID) {
-    dispatch(changeTodolistStatusAC(todolistID, 'failed'))
+    dispatch(changeTodolistStatus({ todolistID, status: 'failed' }))
 
     if (taskID) {
-      dispatch(changeTaskStatusAC(todolistID, taskID, 'failed'))
+      dispatch(changeTaskStatus({ todolistID, taskID, entityStatus: 'failed' }))
     }
   } else {
-    dispatch(changeAppStatusAC('failed'))
+    dispatch(changeAppStatus({ status: 'failed' }))
   }
 }
 
-export const handleAppError = <T>(
-  dispatch: Dispatch<ActionsType>,
-  data: ResponseType<T>,
-  todolistID?: string,
-  taskID?: string
-) => {
-  dispatch(setAppErrorAC(data.messages[0] || 'some error occurred'))
+export const handleAppError = <T>(dispatch: Dispatch, data: ResponseType<T>, todolistID?: string, taskID?: string) => {
+  dispatch(setAppError({ error: data.messages[0] || 'some error occurred' }))
 
   if (todolistID) {
-    dispatch(changeTodolistStatusAC(todolistID, 'failed'))
+    dispatch(changeTodolistStatus({ todolistID, status: 'failed' }))
 
     if (taskID) {
-      dispatch(changeTaskStatusAC(todolistID, taskID, 'failed'))
+      dispatch(changeTaskStatus({ todolistID, taskID, entityStatus: 'failed' }))
     }
   } else {
-    dispatch(changeAppStatusAC('failed'))
+    dispatch(changeAppStatus({ status: 'failed' }))
   }
 }

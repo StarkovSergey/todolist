@@ -1,20 +1,23 @@
 import React, { useCallback } from 'react'
-import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
-import { AddItemBox } from '../../../components/AddItemBox/AddItemBox'
-import { Button, CircularProgress, IconButton } from '@mui/material'
+
 import DeleteIcon from '@mui/icons-material/Delete'
-import style from './Todolist.module.css'
+import { Button, CircularProgress, IconButton } from '@mui/material'
+
+import { TaskStatuses } from '../../../api/todolist-api'
+import { useAppDispatch } from '../../../app/store'
+import { AddItemBox } from '../../../components/AddItemBox/AddItemBox'
+import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
+import { addTaskTC, TaskDomainType } from '../tasks-reducer'
 import {
-  changeTodolistFilterAC,
+  changeTodolistFilter,
   changeTodolistTitleTC,
   FilterType,
   removeTodolistTC,
   TodolistDomainType,
 } from '../todolists-reducer'
-import { addTaskTC, TaskDomainType } from '../tasks-reducer'
+
 import { Task } from './Task/Task'
-import { TaskStatuses } from '../../../api/todolist-api'
-import { useAppDispatch } from '../../../app/store'
+import style from './Todolist.module.css'
 
 type PropsType = {
   todolist: TodolistDomainType
@@ -26,20 +29,21 @@ export const Todolist = React.memo(({ todolist, tasks, demo = false }: PropsType
   const dispatch = useAppDispatch()
 
   let filteredTasks: TaskDomainType[]
+
   switch (todolist.filter) {
     case 'active':
-      filteredTasks = tasks.filter((task) => task.status === TaskStatuses.New)
+      filteredTasks = tasks.filter(task => task.status === TaskStatuses.New)
       break
     case 'completed':
-      filteredTasks = tasks.filter((task) => task.status === TaskStatuses.Completed)
+      filteredTasks = tasks.filter(task => task.status === TaskStatuses.Completed)
       break
     default:
       filteredTasks = tasks
   }
 
-  const changeTodolistFilter = useCallback(
+  const changeTodolistFilterHandler = useCallback(
     (filter: FilterType) => {
-      dispatch(changeTodolistFilterAC(todolist.id, filter))
+      dispatch(changeTodolistFilter({ todolistID: todolist.id, filter }))
     },
     [dispatch, todolist.id]
   )
@@ -62,7 +66,7 @@ export const Todolist = React.memo(({ todolist, tasks, demo = false }: PropsType
     [dispatch, todolist.id]
   )
 
-  const tasksElements = filteredTasks.map((task) => {
+  const tasksElements = filteredTasks.map(task => {
     return <Task key={task.id} task={task} todolistID={todolist.id} />
   })
 
@@ -85,21 +89,21 @@ export const Todolist = React.memo(({ todolist, tasks, demo = false }: PropsType
       <ul className={style['tasks-list']}>{tasksElements}</ul>
       <div className={style['button-box']}>
         <Button
-          onClick={() => changeTodolistFilter('all')}
+          onClick={() => changeTodolistFilterHandler('all')}
           variant={todolist.filter === 'all' ? 'contained' : 'outlined'}
           size="small"
         >
           All
         </Button>
         <Button
-          onClick={() => changeTodolistFilter('active')}
+          onClick={() => changeTodolistFilterHandler('active')}
           variant={todolist.filter === 'active' ? 'contained' : 'outlined'}
           size="small"
         >
           Active
         </Button>
         <Button
-          onClick={() => changeTodolistFilter('completed')}
+          onClick={() => changeTodolistFilterHandler('completed')}
           variant={todolist.filter === 'completed' ? 'contained' : 'outlined'}
           size="small"
         >

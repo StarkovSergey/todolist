@@ -1,6 +1,6 @@
-import { addTaskAC, removeTaskAC, tasksReducer, TasksStateType, updateTaskAC } from '../tasks-reducer'
-import { removeTodolistAC } from '../todolists-reducer'
 import { TaskPriorities, TaskStatuses, TaskType } from '../../../api/todolist-api'
+import { addTask, removeTask, tasksReducer, TasksStateType, updateTask } from '../tasks-reducer'
+import { removeTodolist } from '../todolists-reducer'
 
 let startState: TasksStateType
 let testTask: TaskType
@@ -93,13 +93,13 @@ beforeEach(() => {
 })
 
 test('task should be added', () => {
-  const endState = tasksReducer(startState, addTaskAC(testTask))
+  const endState = tasksReducer(startState, addTask({ task: testTask }))
 
   expect(endState.id1[0].title).toBe(testTask.title)
 })
 
 test('task should be removed', () => {
-  const endState = tasksReducer(startState, removeTaskAC('id1', 'id2'))
+  const endState = tasksReducer(startState, removeTask({ todolistID: 'id1', taskID: 'id2' }))
 
   expect(endState.id1.length).toBe(2)
   expect(endState.id1[1].id).toBe('id3')
@@ -118,7 +118,7 @@ test('task status should be changed', () => {
     priority: TaskPriorities.Low,
     description: '',
   }
-  const endState = tasksReducer(startState, updateTaskAC(updatedTask))
+  const endState = tasksReducer(startState, updateTask({ task: updatedTask }))
 
   expect(endState.id1[1].status).toBe(TaskStatuses.Completed)
 })
@@ -138,13 +138,13 @@ test('task title should be changed', () => {
     description: '',
   }
 
-  const endState = tasksReducer(startState, updateTaskAC(updatedTask))
+  const endState = tasksReducer(startState, updateTask({ task: updatedTask }))
 
   expect(endState.id1[1].title).toBe(newTaskTitle)
 })
 
 test('property with todolistId should be deleted', () => {
-  const endState = tasksReducer(startState, removeTodolistAC('id1'))
+  const endState = tasksReducer(startState, removeTodolist({ todolistID: 'id1' }))
 
   expect(endState['id1']).toBeUndefined()
 })
