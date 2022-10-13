@@ -1,11 +1,13 @@
-import style from '../Todolist.module.css'
-import { Checkbox, CircularProgress, IconButton } from '@mui/material'
-import { EditableSpan } from '../../../../components/EditableSpan/EditableSpan'
-import DeleteIcon from '@mui/icons-material/Delete'
 import React, { ChangeEvent } from 'react'
-import { removeTaskTC, TaskDomainType, updateTaskTC } from '../../tasks-reducer'
+
+import DeleteIcon from '@mui/icons-material/Delete'
+import { Checkbox, CircularProgress, IconButton } from '@mui/material'
+
 import { TaskStatuses } from '../../../../api/todolist-api'
 import { useAppDispatch } from '../../../../app/store'
+import { EditableSpan } from '../../../../components/EditableSpan/EditableSpan'
+import { removeTaskTC, TaskDomainType, updateTaskTC } from '../../tasks-reducer'
+import style from '../Todolist.module.css'
 
 type PropsType = {
   task: TaskDomainType
