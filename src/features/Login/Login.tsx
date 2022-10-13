@@ -6,7 +6,7 @@ import * as React from 'react'
 
 export const Login = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   const formik = useFormik({
     initialValues: {
@@ -14,7 +14,7 @@ export const Login = () => {
       password: '',
       rememberMe: false,
     },
-    validate: (values) => {
+    validate: values => {
       const errors: FormikErrorType = {}
 
       if (!values.email) {
@@ -23,13 +23,13 @@ export const Login = () => {
         errors.email = 'Invalid email address'
       }
 
-      if (values.password.length < 6) {
-        errors.password = 'The minimal password length is 6'
+      if (values.password.length < 4) {
+        errors.password = 'The minimal password length is 4'
       }
 
       return errors
     },
-    onSubmit: (values) => {
+    onSubmit: values => {
       dispatch(loginTC(values))
       formik.resetForm()
     },
