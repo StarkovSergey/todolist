@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 import App from './app/App'
 import { store } from './app/store'
@@ -29,9 +29,9 @@ export const theme = createTheme({
 root.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   </Provider>
 )
